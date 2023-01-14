@@ -29,7 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [TasksController::class, 'index'])->name('all.tasks');
         Route::get('/{id}', [TasksController::class, 'show'])->name('id.task');
         Route::delete('/{id}', [TasksController::class, 'destroy'])->name('delete.task');
-   
+        Route::get('/search', [TasksController::class, 'searchTask'])->name('search.tasks');
+        Route::get('/sort', [TasksController::class, 'sortTask'])->name('sort.tasks');
    
    
         Route::prefix('subtask')->group(function () {
