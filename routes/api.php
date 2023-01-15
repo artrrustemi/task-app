@@ -23,16 +23,18 @@ use App\Http\Controllers\Api\AuthController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+
     Route::prefix('tasks')->group(function () {
         Route::post('/', [TasksController::class, 'store'])->name('add.task');
         Route::put('/{id}', [TasksController::class, 'update'])->name('update.task');
         Route::get('/', [TasksController::class, 'index'])->name('all.tasks');
         Route::get('/{id}', [TasksController::class, 'show'])->name('id.task');
         Route::delete('/{id}', [TasksController::class, 'destroy'])->name('delete.task');
-        Route::get('/search', [TasksController::class, 'searchTask'])->name('search.tasks');
-        Route::get('/sort', [TasksController::class, 'sortTask'])->name('sort.tasks');
-   
-   
+        Route::get('sort/{typeSort}', [TasksController::class, 'sortTask']);
+        Route::get('/search/{term}', [TasksController::class, 'searchTask']);
+
+
+
         Route::prefix('subtask')->group(function () {
             Route::post('/', [SubTasksController::class, 'store'])->name('add.subtask');
             Route::put('/{id}', [SubTasksController::class, 'update'])->name('update.subtask');
@@ -40,6 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
         });
     });
 });
+ 
 
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);

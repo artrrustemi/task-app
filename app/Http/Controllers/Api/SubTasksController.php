@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSubTaskRequest;
 use App\Http\Requests\UpdateSubTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Models\SubTask;
 use Illuminate\Http\Request;
 use App\Interfaces\SubTaskRepositoryInterface;
@@ -46,18 +47,9 @@ class SubTasksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSubTaskRequest $request)
     {
-        $validator = Validator::make($request->all(), [ 
-            'name' => 'required|string|max:255',
-            'position' => 'required|numeric',
-            'description' => 'required|string',
-            'task_id' => 'required|numeric|exists:tasks,id'
-        ]);
-      
-        if ($validator->fails()) {
-          return response()->json($validator->errors(), 422);
-        }
+        
         $subTaskDetails = [
             'name' => $request->name,
             'position' => $request->position,
@@ -106,19 +98,9 @@ class SubTasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateTaskRequest $request)
     {
         $subTaskId = $request->route('id');
-        $validator = Validator::make($request->all(), [ 
-            'name' => 'required|string|max:255',
-            'position' => 'required|numeric',
-            'description' => 'required|string',
-            'task_id' => 'required|numeric|exists:tasks,id'
-        ]);
-      
-        if ($validator->fails()) {
-          return response()->json($validator->errors(), 422);
-        }
 
         $subTaskDetails = [
             'name' => $request->name,

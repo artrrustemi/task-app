@@ -25,9 +25,10 @@ class StoreSubTaskRequest extends FormRequest
     {
        
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'position' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:1000']
+            'name' => 'required|string|max:255',
+            'position' => 'required|numeric',
+            'description' => 'required|string',
+            'task_id' => 'required|numeric|exists:tasks,id'
         ];
     }
 }

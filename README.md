@@ -1,64 +1,105 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+This task management application is designed to help users easily store, update, view, filter, and search tasks according to their specific needs.
+Users can easily add new tasks, edit existing ones, and view their task list in a clear and organized manner. 
+The application also allows users to filter their tasks by various criteria, such as name, position, priority level, and description. Additionally, the application's powerful search function allows users to quickly find the tasks they need, even among large numbers of tasks.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Before using this task management application, it is important to check the version of PHP that is installed on your computer. If the version is below 8, you will need to run the command "composer update" in order to ensure that the application runs smoothly. This command will update the necessary components and dependencies to the latest version, allowing the application to function properly. Additionally, it will ensure that you have the most up-to-date security features and performance enhancements.
+Than you have to run the command php artisan key:generate
 
-## About Laravel
+Once you have run the "composer update" command and ensured that the correct version of PHP is installed, you can proceed to open the ".env" file. In this file, look for the "db_name" field and change it to "task-app". This will set the database name for the application to "task-app".
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+After that, you can run the command "php artisan migrate" to create the database tables required by the application. This command will create the necessary tables in the "task-app" database, allowing you to store and manage your tasks.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Make sure that you have a database instance running on your local machine or remote server to be able to connect to it , otherwise you need to create one or configure the database credentials properly in the .env file before running the migration command. 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+It is important to note that you should run the PositionSeeder, PrioritySeeder and TaskSeeder before running the SubTaskSeeder, since the subtasks table depends on the tasks table, and the tasks table depends on the positions and priorities table. So the correct order should be:
 
-## Learning Laravel
+Run the command "php artisan db:seed --class=PositionSeeder" to seed positions data
+Run the command "php artisan db:seed --class=PrioritiesSeeder" to seed priorities data
+Run the command "php artisan db:seed --class=TaskSeeder" to seed tasks data
+Run the command "php artisan db:seed --class=SubTaskSeeder" to seed subtasks data
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+This way you will avoid any conflicts or errors that may occur due to the dependencies of the tables.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+After successfully running the seeder commands and filling the tables with data, you can now run the command "php artisan serve" to start the application.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+This command will start a local development server, which will host the application on your computer. It will also provide you with a local URL, such as "http://127.0.0.1:8000" or "http://localhost:8000", which you can use to access the application in your web browser.
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+To test the application, you will first need to create a user by sending a request to the Postman API at the URL "http://localhost:8000/api/signup".
 
-## Contributing
+You can use Postman, a popular API development tool, to send an HTTP request to the signup endpoint. You will need to set the request method to POST, and in the body of the request, you will need to include the user's information such as email, name, password, password_confirmation.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+You need to include a JSON object that contains the user's name, email, password, and password confirmation. For example:
 
-## Code of Conduct
+{
+    "name":"art",
+    "email":"art@gmail.com",
+    "password":"123123123",
+    "password_confirmation":"123123123"
+}
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Once you have sent the request, the application will create a new user with the provided information, and you can use that user to test the other features of the application, such as creating, editing, and deleting tasks.
 
-## Security Vulnerabilities
+After creating a user and verifying that it was created successfully, you will need to log in to the application by sending a POST request to the URL "http://localhost:8000/api/login" using Postman.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+In the request body, include a JSON object with the user's email and password. For example:
 
-## License
+{
+    "email":"art@gmail.com",
+    "password":"123123123"
+}
+The application will then verify the provided email and password and, if they are correct, it will generate a Bearer token. This token is a secure way of identifying the user and allowing them to access the protected routes and features of the application.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+You will need to use this token in the Authorization header of every request that you send to protected routes, usually the format of the token is "Bearer <token>".
+
+Once you have logged in to the application and obtained a Bearer token, you can retrieve all the tasks from the database by sending a GET request to the URL "http://localhost:8000/api/tasks" using Postman.
+
+You will need to set the request method to GET and include the Bearer token in the Authorization header.
+
+The application will then return a JSON object containing all the tasks from the database, including information such as task name, description, due date, completion status, and other relevant fields.
+
+You can retrieve a specific task by its ID by sending a GET request to the URL "http://localhost:8000/api/tasks/{id}" using Postman, where {id} is the ID of the task you want to retrieve.
+
+For example, if you want to retrieve the task with ID 100, you would send a GET request to the URL "http://localhost:8000/api/tasks/100" .
+You can also use this endpoint to update or delete a specific task by using PUT or DELETE request methods and providing the task information in the body of the request.
+
+to add a new task to the database you will need to send a POST request to the URL "http://localhost:8000/api/tasks" using Postman.
+
+In the request body, include a JSON object with the task's information, such as its name, description, position, and priority.
+
+For example:
+
+{
+    "name":"task1",
+    "description":"test",
+    "position_id":"3",
+    "priority_id":"1"
+}
+
+You also need to go to the headers tab in Postman and add a key "Content-Type" with value "application/json" and "Accept" with value "application/json" in order to set the content-type header to json.
+
+To add a new subtask to the database, you will need to send a POST request to the URL "http://localhost:8000/api/tasks/subtasks" using Postman.
+
+In the request body, include a JSON object with the subtask's information, such as its name, description, position, and the task_id it belongs to.
+
+For example:
+
+{
+    "name":"subtask",
+    "description":"test",
+    "position_id":"3",
+    "task_id":"1"
+}
+To update a subtask, you would use the same process as adding a new one, but you would need to change the method to PUT instead of POST.
+
+To delete a subtask, you would need to send a DELETE request to the URL "http://localhost:8000/api/tasks/subtasks/{id}" using Postman, where {id} is the ID of the subtask you want to delete.
+
+To sort tasks in ascending or descending order, you can send a GET request to the URL "http://127.0.0.1:8000/api/tasks/sort/{order}" using Postman, where {order} is either "asc" for ascending order or "desc" for descending order.
+To search for a specific task, you can send a GET request to the URL "http://127.0.0.1:8000/api/tasks/search/{term}" using Postman, where {term} is the search term you want to use.
+
+To log out of the application, you can send a GET request to the URL "http://127.0.0.1:8000/api/logout" using Postman.
+
+You should also include the Bearer token in the Authorization header.
+
+The application will then log out the user, invalidating the current token, and preventing further access to the protected routes.

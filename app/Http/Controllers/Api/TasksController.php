@@ -52,19 +52,8 @@ class TasksController extends Controller
      * @param  \Illuminate\Http\StoreTaskRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [ 
-            'name' => 'required|string|max:255',
-            'position' => 'required|numeric',
-            'description' => 'required|string',
-            'priority_id' => 'required|numeric|exists:priorities,id'
-        ]);
-      
-        if ($validator->fails()) {
-          return response()->json($validator->errors(), 422);
-        }
-       
+    public function store(StoreTaskRequest $request)
+    {   
         $taskDetails = [
                     'name' => $request->name,
                     'position' => $request->position,
@@ -118,19 +107,9 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateTaskRequest $request)
     {
         $taskId = $request->route('id');
-        $validator = Validator::make($request->all(), [ 
-            'name' => 'required|string|max:255',
-            'position' => 'required|numeric',
-            'description' => 'required|string',
-            'priority_id' => 'required|numeric|exists:priorities,id'
-        ]);
-      
-        if ($validator->fails()) {
-          return response()->json($validator->errors(), 422);
-        }
 
         $taskDetails = [
             'name' => $request->name,
@@ -184,7 +163,7 @@ class TasksController extends Controller
 
     public function searchTask(Request $request){
         
-        $searchTask = $request->route('term');
+        $searchTask = $request;
         $search = $this->taskRepository->searchTask($searchTask);
 
         return response()->json([
