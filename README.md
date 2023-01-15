@@ -93,6 +93,43 @@ For example:
 }
 To update a subtask, you would use the same process as adding a new one, but you would need to change the method to PUT instead of POST.
 
+
+You can calculate the time spent on a task by storing the start and end time of the task in the task table.
+
+You can use the "created_at" field to store the start time of the task and the "finished_at" field to store the end time of the task.
+
+You can update the task by sending a PUT request to the URL "http://127.0.0.1:8000/api/tasks/{id}" using Postman, where {id} is the ID of the task you want to update.
+
+In the request body, you would include the updated task information such as name, description, position_id, priority_id and finished_at.
+
+For example:
+{
+"name":"task1",
+"description":"test",
+"position_id":"3",
+"priority_id":"1",
+"finished_at":"2023-01-19 09:19:18"
+}
+
+The same goes for subtasks, you can use the "created_at" field to store the start time of the subtask and the "finished_at" field to store the end time of the subtask.
+
+You can update the subtask by sending a PUT request to the URL "http://127.0.0.1:8000/api/tasks/subtasks/{id}" using Postman, where {id} is the ID of the subtask you want to update.
+
+In the request body, you would include the updated subtask information such as name, description, position_id, task_id and finished_at.
+
+For example:
+{
+"name":"subtask1",
+"description":"test",
+"position_id":"3",
+"task_id":"1",
+"finished_at":"2023-01-19 09:19:18"
+}
+
+You can then use the start and end times to calculate the time spent on the task or subtask by subtracting the start time from the end time.
+
+The value should be in the correct format (YYYY-MM-DD HH:MM:SS) and should be later than the "created_at" value.
+
 To delete a subtask, you would need to send a DELETE request to the URL "http://localhost:8000/api/tasks/subtasks/{id}" using Postman, where {id} is the ID of the subtask you want to delete.
 
 To sort tasks in ascending or descending order, you can send a GET request to the URL "http://127.0.0.1:8000/api/tasks/sort/{order}" using Postman, where {order} is either "asc" for ascending order or "desc" for descending order.
