@@ -37,7 +37,7 @@ class TaskRepository implements TaskRepositoryInterface
     public function deleteTask($taskId) 
     {
         $task=Task::findOrFail($taskId);
-        return $task->destroy();
+        return $task->destroy($taskId);
     }
 
     public function createTask(array $taskDetails) 
@@ -64,12 +64,12 @@ class TaskRepository implements TaskRepositoryInterface
             ->whereNotNull('name')
             ->whereNotNull('position')
             ->whereNotNull('description')
-            ->whereNotNull('priority')
+            ->whereNotNull('priority_id')
             ->when($request->term, function ($query) use ($request) {
         $query->where('name', 'LIKE', '%'.$request->term.'%')
             ->orWhere('position', 'LIKE', '%' . $request->term . '%')
             ->orWhere('description', 'LIKE', '%' . $request->term . '%')
-            ->orWhere('priority', 'LIKE', '%' . $request->term . '%');
+            ->orWhere('priority_id', 'LIKE', '%' . $request->term . '%');
         })
         ->latest()
         ->simplePaginate(10);
