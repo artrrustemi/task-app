@@ -98,7 +98,7 @@ class SubTasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTaskRequest $request)
+    public function update(StoreSubTaskRequest $request)
     {
         $subTaskId = $request->route('id');
 

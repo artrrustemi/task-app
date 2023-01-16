@@ -73,13 +73,13 @@ For example:
 {
     "name":"task1",
     "description":"test",
-    "position_id":"3",
+    "position":"3",
     "priority_id":"1"
 }
 
 You also need to go to the headers tab in Postman and add a key "Content-Type" with value "application/json" and "Accept" with value "application/json" in order to set the content-type header to json.
 
-To add a new subtask to the database, you will need to send a POST request to the URL "http://localhost:8000/api/tasks/subtasks" using Postman.
+To add a new subtask to the database, you will need to send a POST request to the URL "http://localhost:8000/api/tasks/subtask" using Postman.
 
 In the request body, include a JSON object with the subtask's information, such as its name, description, position, and the task_id it belongs to.
 
@@ -88,7 +88,7 @@ For example:
 {
     "name":"subtask",
     "description":"test",
-    "position_id":"3",
+    "position":"3",
     "task_id":"1"
 }
 To update a subtask, you would use the same process as adding a new one, but you would need to change the method to PUT instead of POST.
@@ -100,28 +100,28 @@ You can use the "created_at" field to store the start time of the task and the "
 
 You can update the task by sending a PUT request to the URL "http://127.0.0.1:8000/api/tasks/{id}" using Postman, where {id} is the ID of the task you want to update.
 
-In the request body, you would include the updated task information such as name, description, position_id, priority_id and finished_at.
+In the request body, you would include the updated task information such as name, description, position, priority_id and finished_at.
 
 For example:
 {
 "name":"task1",
 "description":"test",
-"position_id":"3",
+"position":"3",
 "priority_id":"1",
 "finished_at":"2023-01-19 09:19:18"
 }
 
 The same goes for subtasks, you can use the "created_at" field to store the start time of the subtask and the "finished_at" field to store the end time of the subtask.
 
-You can update the subtask by sending a PUT request to the URL "http://127.0.0.1:8000/api/tasks/subtasks/{id}" using Postman, where {id} is the ID of the subtask you want to update.
+You can update the subtask by sending a PUT request to the URL "http://127.0.0.1:8000/api/tasks/subtask/{id}" using Postman, where {id} is the ID of the subtask you want to update.
 
-In the request body, you would include the updated subtask information such as name, description, position_id, task_id and finished_at.
+In the request body, you would include the updated subtask information such as name, description, position, task_id and finished_at.
 
 For example:
 {
 "name":"subtask1",
 "description":"test",
-"position_id":"3",
+"position":"3",
 "task_id":"1",
 "finished_at":"2023-01-19 09:19:18"
 }
@@ -130,7 +130,7 @@ You can then use the start and end times to calculate the time spent on the task
 
 The value should be in the correct format (YYYY-MM-DD HH:MM:SS) and should be later than the "created_at" value.
 
-To delete a subtask, you would need to send a DELETE request to the URL "http://localhost:8000/api/tasks/subtasks/{id}" using Postman, where {id} is the ID of the subtask you want to delete.
+To delete a subtask, you would need to send a DELETE request to the URL "http://localhost:8000/api/tasks/subtask/{id}" using Postman, where {id} is the ID of the subtask you want to delete.
 
 To sort tasks in ascending or descending order, you can send a GET request to the URL "http://127.0.0.1:8000/api/tasks/sort/{order}" using Postman, where {order} is either "asc" for ascending order or "desc" for descending order.
 To search for a specific task, you can send a GET request to the URL "http://127.0.0.1:8000/api/tasks/search/{term}" using Postman, where {term} is the search term you want to use.
@@ -140,3 +140,8 @@ To log out of the application, you can send a GET request to the URL "http://127
 You should also include the Bearer token in the Authorization header.
 
 The application will then log out the user, invalidating the current token, and preventing further access to the protected routes.
+
+
+Postman Collection
+
+https://api.postman.com/collections/25314842-815a27ef-6508-4f06-9cb7-1b34d3a6f010?access_key=PMAT-01GPXCDNBFZYG4DETMS1ESEM29 
